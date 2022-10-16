@@ -62,7 +62,7 @@ function getEleToView(width, left) {
     return [left, left+width]
 }
 
-// 判断tab是否在显示范围内
+// 判断tab是否在显示范围内，不在则调整tab栏位置
 function tabInView(tab) {
     const [width, left] = getEleWidth(tab)
     const right = left + width
@@ -80,17 +80,16 @@ function tabInView(tab) {
     }
 }
 
-// 点击tab栏
+// 切换tab
 function changeTab() {
     const tab = event.target
-    if (tab == preTab) {
-        console.log('dddd')
-    }
-    const index = tab.getAttribute('id').split('-')[1]
+    console.log(tab.tagName, tab)
     if (tab.tagName != 'LI') return
+    // 样式切换
     tablistToggleClass(tab)
     leftbarToggleClass(document.getElementById(`bar-${index}`))
     tabInView(tab)
+    preTab = tab
 }
 
 // 点击向前按钮
@@ -102,10 +101,8 @@ function preBtn() {
 function aftBtn() {
     const [lastWidth, lastlLeft] = getEleWidth(tabList.lastChild)
     const [firstWidth, firstlLeft] = getEleWidth(tabList.firstChild)
-    console.log()
-    console.log(lastlLeft+lastWidth-firstlLeft,(listRightToView-listLeftToView),tabList.offsetLeft, 'ddd', firstlLeft)
+    // lastWidth+lastleft-firstLeft 算出tab栏实际宽度  listRightToView-listLeftToView 算出tab栏显示宽度
     tabList.style.left = `-${lastlLeft+lastWidth-firstlLeft-(listRightToView-listLeftToView)}px`
-
 }
 
 
