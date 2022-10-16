@@ -85,6 +85,7 @@ function changeTab() {
     const tab = event.target
     console.log(tab.tagName, tab)
     if (tab.tagName != 'LI') return
+    const index = tab.getAttribute('id').split('-')[1]
     // 样式切换
     tablistToggleClass(tab)
     leftbarToggleClass(document.getElementById(`bar-${index}`))
